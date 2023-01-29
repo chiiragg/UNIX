@@ -1,0 +1,19 @@
+^D$ ls
+file1.text
+$ cat file1.text 
+hello
+i am Sameecha
+
+$ cat file1.text 
+hello
+i am Pragun
+
+$ cd ..
+$ ls
+dir1		dir2		typescript
+
+$ cd dir1/
+$ ls
+file1.text
+$ cat > file3.text
+this is file 3

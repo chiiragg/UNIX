@@ -1,0 +1,96 @@
+PROGRAM 3:
+bmsce@bmsce-Precision-T1700:~$ cat empp.lst
+2233|a.k. shukla|g.m.|sales|12/12/52|6000
+9876|jai sharma|director|production|03/12/50|7000
+5678|sumit chakrobarty|d.g.m|marketing|04/19/43|6000
+2365|barun sengupta|director|personnel|05/11/47|7800
+5423|n.k. gupta|chairman|admin|08/30/56|5400
+1006|chanchal sanghvi|director|sales|09/03/38|6700
+6213|karuna ganguly|g.m.|accounts|06/05/62|6300
+1265|s.n. dasgupta|manager|sales|09/12/63|5600
+4290|jayant Chodhury|executive|production|09/07/50|6000
+2476|anil aggarwal|manager|sales|05/01/59|5000
+6521|lalit chowdury|director|marketing|09/26/45|8200
+3212|shyam saksena|d.g.m|accounts|12/12/55|6000
+3564|sudhir Agarwal|executive|personnel|07/06/47|8000
+2345|j.b. saxena|g.m.|marketing|03/12/45|8000
+0110|v.k. agrawal |g.m.|marketing|12/31/40|9000
+
+1) DISPLAY TOP 4 VALUES
+bmsce@bmsce-Precision-T1700:~$ head -n 4 empp.lst
+2233|a.k. shukla|g.m.|sales|12/12/52|6000
+9876|jai sharma|director|production|03/12/50|7000
+5678|sumit chakrobarty|d.g.m|marketing|04/19/43|6000
+2365|barun sengupta|director|personnel|05/11/47|7800
+
+2) LAST 3 VALUES
+bmsce@bmsce-Precision-T1700:~$ tail -n 3 empp.lst
+3564|sudhir Agarwal|executive|personnel|07/06/47|8000
+2345|j.b. saxena|g.m.|marketing|03/12/45|8000
+0110|v.k. agrawal |g.m.|marketing|12/31/40|9000
+
+3) DISPLAY VALUES FROM COLUMN 6-22, and 24-32
+bmsce@bmsce-Precision-T1700:~$ cut -c 6-22,24-32 empp.lst
+a.k. shukla|g.m.|ales|12/1
+jai sharma|directr|product
+sumit chakrobartyd.g.m|mar
+barun sengupta|diector|per
+n.k. gupta|chairmn|admin|0
+chanchal sanghvi|irector|s
+karuna ganguly|g..|account
+s.n. dasgupta|manger|sales
+jayant Chodhury|eecutive|p
+anil aggarwal|manger|sales
+lalit chowdury|diector|mar
+shyam saksena|d.gm|account
+sudhir Agarwal|excutive|pe
+j.b. saxena|g.m.|arketing|
+v.k. agrawal |g.m|marketing
+
+4) DEMONSTRATE TEE
+bmsce@bmsce-Precision-T1700:~$ head -n 5 empp.lst | tee shortlist
+2233|a.k. shukla|g.m.|sales|12/12/52|6000
+9876|jai sharma|director|production|03/12/50|7000
+5678|sumit chakrobarty|d.g.m|marketing|04/19/43|6000
+2365|barun sengupta|director|personnel|05/11/47|7800
+5423|n.k. gupta|chairman|admin|08/30/56|5400
+bmsce@bmsce-Precision-T1700:~$ cat shortlist
+2233|a.k. shukla|g.m.|sales|12/12/52|6000
+9876|jai sharma|director|production|03/12/50|7000
+5678|sumit chakrobarty|d.g.m|marketing|04/19/43|6000
+2365|barun sengupta|director|personnel|05/11/47|7800
+5423|n.k. gupta|chairman|admin|08/30/56|5400
+
+5) DISPLAY 2nd AND 3rd FIELDS
+bmsce@bmsce-Precision-T1700:~$ cut -d\| -f 2,3 shortlist | tee cutlist1
+a.k. shukla|g.m.
+jai sharma|director
+sumit chakrobarty|d.g.m
+barun sengupta|director
+n.k. gupta|chairman
+bmsce@bmsce-Precision-T1700:~$ cat cutlist1
+a.k. shukla|g.m.
+jai sharma|director
+sumit chakrobarty|d.g.m
+barun sengupta|director
+n.k. gupta|chairman
+
+6) PASTE 'NAME', 'DESIGNATION', 'DEPT' and the 'DATE' BY CONSIDERING NAME  & DESIGNATION IN ONE FILE, DEPT & DATE IN ANOTHER FILE
+bmsce@bmsce-Precision-T1700:~$ cut -d\| -f 4,5 shortlist | tee cutlist2
+sales|12/12/52
+production|03/12/50
+marketing|04/19/43
+personnel|05/11/47
+admin|08/30/56
+bmsce@bmsce-Precision-T1700:~$ cut -d\| -f 2,3 shortlist | tee cutlist1
+a.k. shukla|g.m.
+jai sharma|director
+sumit chakrobarty|d.g.m
+barun sengupta|director
+n.k. gupta|chairman
+bmsce@bmsce-Precision-T1700:~$ paste -d"|" cutlist1 cutlist2
+a.k. shukla|g.m.|sales|12/12/52
+jai sharma|director|production|03/12/50
+sumit chakrobarty|d.g.m|marketing|04/19/43
+barun sengupta|director|personnel|05/11/47
+n.k. gupta|chairman|admin|08/30/56

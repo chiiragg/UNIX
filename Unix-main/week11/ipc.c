@@ -1,0 +1,99 @@
+/*4. Write a C/C++ program which demonstrates interprocess communication between a
+reader process and a writer process. Use mkfifo, open, read, write and close APIs in */
+
+
+
+#include<sys/types.h>
+
+
+#include<unistd.h>
+
+
+#include<fcntl.h>
+
+
+#include<sys/stat.h>
+
+
+#include<string.h>
+
+
+#include<errno.h>
+
+
+#include<stdio.h>
+
+
+int main(int argc, char* argv[])
+
+
+{
+
+
+int fd;
+
+
+char buf[256];
+
+
+if(argc != 2 && argc != 3)
+
+
+{
+
+
+printf("USAGE %s <file> [<arg>]\n",argv[0]);
+
+
+return 0;
+
+
+}
+
+
+mkfifo(argv[1],S_IFIFO | S_IRWXU | S_IRWXG | S_IRWXO );
+
+
+if(argc == 2)
+
+
+{
+
+
+fd = open(argv[1], O_RDONLY|O_NONBLOCK);
+
+
+while(read(fd, buf, sizeof(buf)) > 0)
+
+printf("%s",buf);
+
+
+}
+
+
+else
+
+
+{
+
+
+fd = open(argv[1], O_WRONLY);
+
+
+write(fd,argv[2],strlen(argv[2]));
+
+
+}
+
+
+close(fd);
+
+
+}
+
+//output
+/*
+[root@localhostuspl]#./a.out FIFO1 “This is USP & CD lab”
+[root@localhost /]# ./a.out
+FIFO1
+*/
